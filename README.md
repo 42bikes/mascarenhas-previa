@@ -23,6 +23,8 @@ dependências.
   Publicada em `/proposta`, com atalho em `/p` (rewrite no `vercel.json`).
 - **Preview no WhatsApp**: `assets/img/og-site.jpg` e `og-proposta.jpg` (1200×630).
 
+**Repositório:** https://github.com/42bikes/mascarenhas-previa
+
 ## Rodar localmente
 
 ```bash
