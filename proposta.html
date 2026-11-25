@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Proposta — Mascarenhas Rent a Car e Motos</title>
+  <meta name="description" content="Apresentação da prévia do novo site da Mascarenhas Rent a Car e Motos: o diagnóstico, a frota, as condições de aluguel e o escopo de publicação.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="./proposta.html">
+  <meta property="og:title" content="Prévia do novo site — Mascarenhas Rent a Car e Motos">
+  <meta property="og:description" content="Apresentação interativa: diagnóstico, frota, condições de aluguel e escopo de publicação.">
+  <meta property="og:image" content="assets/img/og-proposta.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Prévia do novo site da Mascarenhas">
+  <meta property="og:locale" content="pt_BR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="assets/img/og-proposta.jpg">
+  <meta name="theme-color" content="#17130F">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink:#17130F;
+      --ink-2:#4A4136;
+      --muted:#7A6E60;
+      --sea:#C77F0C;
+      --teal:#17130F;
+      --gold:#E39A1C;
+      --gold-deep:#9A6206;
+      --gold-soft:#F7E3BE;
+      --paper:#FBF7F0;
+      --white:#fff;
+      --sand:#E0D2BC;
+      --line:rgba(21,25,27,.12);
+      --line-strong:rgba(21,25,27,.22);
+      --serif:"Archivo","Helvetica Neue",Arial,sans-serif;
+      --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+      --r-lg:18px;
+      --r-md:13px;
+      --r-sm:8px;
+      --shadow:0 10px 30px -14px rgba(21,25,27,.35);
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+
+    html,body{
+      width:100%;min-height:100%;
+      background:var(--ink);
+      color:var(--ink);
+      font-family:var(--sans);
+      line-height:1.5;
+      overflow-x:hidden;
+      overscroll-behavior-y:none;
+    }
+
+    /* moldura de app: mesma sensação de stories do celular, até no desktop */
+    .app-viewport{
+      width:100%;max-width:480px;min-height:100vh;margin:0 auto;
+      background:var(--paper);
+      display:flex;flex-direction:column;position:relative;
+      box-shadow:0 0 70px rgba(0,0,0,.5);
+    }
+
+    .stories-header{
+      position:sticky;top:0;z-index:100;
+      padding:10px 14px;
+      background:rgba(21,25,27,.97);
+      -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+      color:var(--gold-soft);
+    }
+    .story-progress-container{display:flex;gap:4px;width:100%;margin-bottom:9px}
+    .story-progress-bar{height:3px;flex:1;background:rgba(255,255,255,.24);border-radius:999px;overflow:hidden}
+    .story-progress-fill{width:0;height:100%;background:var(--gold);transition:width .25s ease}
+    .story-progress-bar.completed .story-progress-fill,
+    .story-progress-bar.active .story-progress-fill{width:100%}
+
+    .stories-meta-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .brand-pill{display:flex;align-items:center;gap:9px;font-size:.85rem;font-weight:600;letter-spacing:.02em}
+    .brand-mark{width:27px;height:27px;display:grid;place-items:center;border:1px solid rgba(194,160,90,.55);border-radius:50%;color:var(--gold)}
+    .brand-mark svg{width:17px;height:17px}
+    .mode-switch-btn{
+      background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);
+      color:var(--gold-soft);font-family:var(--sans);font-size:.71rem;font-weight:600;
+      padding:6px 11px;border-radius:999px;cursor:pointer;min-height:36px;
+    }
+    .mode-switch-btn:hover{border-color:var(--gold)}
+
+    .card-viewport{flex:1 0 auto;padding:16px 16px 96px;touch-action:pan-y}
+    .story-card{display:none;animation:cardIn .22s ease-out}
+    .story-card.active{display:block}
+    @keyframes cardIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+    body.scroll-mode .story-card{display:block!important;margin-bottom:26px;padding-bottom:26px;border-bottom:1px dashed var(--line-strong)}
+    body.scroll-mode .story-card:last-child{border-bottom:0}
+    body.scroll-mode .bottom-nav-bar .nav-touch-btn{display:none}
+    body.scroll-mode .bottom-nav-bar{justify-content:center}
+
+    .kicker{
+      display:inline-flex;align-items:center;gap:6px;
+      font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;
+      color:var(--gold-deep);margin-bottom:7px;
+    }
+    .card-title{
+      font-family:var(--serif);font-size:1.66rem;line-height:1.18;
+      letter-spacing:-.01em;color:var(--ink);font-weight:600;margin-bottom:9px;
+    }
+    .card-subtitle{font-size:.89rem;color:var(--ink-2);line-height:1.55;margin-bottom:15px}
+    .card-note{font-size:.76rem;color:var(--muted);line-height:1.5}
+
+    .cover-card{
+      position:relative;overflow:hidden;
+      border-radius:var(--r-lg);padding:24px 20px;margin-bottom:13px;
+      color:var(--paper);
+      background:
+        linear-gradient(180deg,rgba(10,14,15,.62) 0%,rgba(10,14,15,.45) 40%,rgba(10,14,15,.92) 100%),
+        url("assets/img/hero-moto.jpg") center/cover no-repeat;
+      border:1px solid rgba(255,255,255,.14);
+    }
+    .cover-tag{
+      display:inline-block;background:rgba(194,160,90,.22);color:var(--gold-soft);
+      border:1px solid rgba(194,160,90,.5);border-radius:999px;
+      padding:4px 11px;font-size:.7rem;font-weight:700;letter-spacing:.1em;
+      text-transform:uppercase;margin-bottom:13px;
+    }
+    .cover-card .card-title{color:var(--paper);font-size:1.82rem;margin-bottom:10px}
+    .cover-card .card-subtitle{color:rgba(250,247,240,.9)}
+    .cover-foot{
+      margin-top:14px;padding-top:11px;border-top:1px solid rgba(255,255,255,.2);
+      font-size:.76rem;color:rgba(250,247,240,.8);line-height:1.7;
+    }
+
+    .stat-row{display:flex;gap:8px;margin-bottom:13px}
+    .stat-item{
+      flex:1;background:var(--white);border:1px solid var(--line);
+      border-radius:var(--r-sm);padding:11px 7px;text-align:center;
+    }
+    .stat-val{font-family:var(--serif);font-size:1.45rem;font-weight:700;color:var(--gold-deep);line-height:1.1}
+    .stat-label{font-size:.7rem;color:var(--muted);margin-top:3px;line-height:1.3}
+
+    .touch-box{
+      background:var(--white);border:1px solid var(--line);
+      border-radius:var(--r-md);padding:15px;margin-bottom:11px;box-shadow:0 2px 8px rgba(21,25,27,.04);
+    }
+    .touch-box.highlight{border-color:var(--gold);background:#fffdf8}
+    .touch-box h3{font-size:.9rem;color:var(--ink);margin-bottom:5px;font-weight:700;line-height:1.35}
+    .touch-box h3 .ico{color:var(--gold-deep);margin-inline-end:5px}
+    .touch-box p{font-size:.8rem;color:var(--ink-2);line-height:1.5}
+    .touch-box.compact{padding:12px 14px}
+
+    .alert-chip{
+      background:#fffdf7;border-inline-start:3px solid var(--gold);
+      padding:9px 12px;border-radius:0 var(--r-sm) var(--r-sm) 0;
+      font-size:.79rem;color:var(--ink-2);margin-bottom:8px;line-height:1.45;
+    }
+    .alert-chip strong{display:block;color:var(--gold-deep);font-size:.8rem;margin-bottom:1px}
+
+    .benefit-list{display:flex;flex-direction:column;gap:8px;margin-bottom:11px}
+    .benefit-item{
+      display:flex;gap:11px;align-items:flex-start;
+      background:var(--white);border:1px solid var(--line);
+      border-radius:var(--r-md);padding:11px 12px;
+    }
+    .benefit-num{
+      flex:none;width:25px;height:25px;border-radius:50%;
+      background:var(--gold-soft);color:var(--gold-deep);
+      display:grid;place-items:center;font-size:.73rem;font-weight:700;
+    }
+    .benefit-item h3{font-size:.83rem;font-weight:700;line-height:1.3;margin-bottom:2px}
+    .benefit-item p{font-size:.74rem;color:var(--ink-2);line-height:1.45}
+
+    .tech-grid-2x2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}
+    .tech-mini-card{background:var(--white);border:1px solid var(--line);border-radius:var(--r-sm);padding:13px 11px}
+    .tech-mini-card .tag{display:block;font-size:.66rem;text-transform:uppercase;letter-spacing:.09em;color:var(--gold-deep);font-weight:700;margin-bottom:4px}
+    .tech-mini-card h4{font-size:.84rem;line-height:1.3;margin-bottom:3px;font-weight:700}
+    .tech-mini-card p{font-size:.73rem;color:var(--muted);line-height:1.4}
+
+    .mobile-preview-box{
+      background:#101416;border:1px solid rgba(255,255,255,.14);
+      border-radius:var(--r-lg);padding:11px;margin:13px 0;text-align:center;
+    }
+    .preview-phone-screen{width:100%;height:380px;border:0;border-radius:var(--r-md);background:#fff;display:block}
+    .tap-preview-link{
+      display:flex;align-items:center;justify-content:center;gap:7px;
+      background:var(--gold);color:var(--ink);font-weight:700;font-size:.85rem;
+      padding:13px;border-radius:10px;text-decoration:none;margin-top:10px;min-height:46px;
+    }
+    .tap-preview-link:hover{background:var(--gold-soft)}
+    .tap-preview-link.dark{background:var(--ink);color:var(--gold-soft);border:1px solid rgba(194,160,90,.4)}
+
+    .package-chip{
+      background:var(--white);border:1.5px solid var(--line-strong);
+      border-radius:var(--r-md);padding:15px;margin-bottom:11px;position:relative;cursor:pointer;
+      transition:border-color .2s ease,background .2s ease,box-shadow .2s ease;
+    }
+    .package-chip:hover{border-color:var(--gold)}
+    .package-chip.selected{border-color:var(--gold);background:#fffdf8;box-shadow:0 6px 18px -8px rgba(133,102,39,.4)}
+    .package-ribbon{
+      position:absolute;top:-10px;inset-inline-end:13px;background:var(--ink);color:var(--gold-soft);
+      font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+      padding:3px 9px;border-radius:999px;
+    }
+    .package-header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:6px}
+    .package-name{font-weight:700;font-size:1rem;line-height:1.2}
+    .package-desc{font-size:.73rem;color:var(--muted);margin-top:2px}
+    .package-price{font-family:var(--serif);font-size:.85rem;font-weight:700;color:var(--gold-deep);white-space:nowrap;text-align:end}
+    .feature-list{list-style:none;font-size:.79rem;color:var(--ink-2);margin-top:8px}
+    .feature-list li{padding:3px 0;display:flex;align-items:flex-start;gap:7px;line-height:1.4}
+    .feature-list li::before{content:"✓";color:var(--gold-deep);font-weight:700}
+
+    .timeline-mobile{margin-top:10px}
+    .timeline-row{display:flex;gap:11px;align-items:flex-start;margin-bottom:11px}
+    .timeline-badge{
+      background:var(--gold-deep);color:#fff;font-size:.71rem;font-weight:700;
+      padding:5px 8px;border-radius:6px;min-width:48px;text-align:center;flex:none;
+    }
+    .timeline-badge.final{background:var(--ink);color:var(--gold-soft)}
+    .timeline-info h4{font-size:.86rem;margin-bottom:1px;font-weight:700;line-height:1.25}
+    .timeline-info p{font-size:.76rem;color:var(--muted);line-height:1.4}
+
+    .case-card{overflow:hidden;border:1.5px solid var(--line);border-radius:var(--r-md);padding:0;margin-top:12px;background:var(--white)}
+    .case-media{height:122px;background:var(--ink);overflow:hidden;position:relative}
+    .case-media img{width:100%;height:100%;object-fit:cover;opacity:.9;display:block}
+    .case-label{position:absolute;top:9px;inset-inline-start:10px;background:rgba(21,25,27,.88);color:var(--gold-soft);font-size:.66rem;padding:3px 8px;border-radius:6px}
+    .case-body{padding:12px 14px}
+    .case-body p{font-size:.77rem;color:var(--ink-2);line-height:1.45;margin-top:4px}
+    .case-body a{display:inline-flex;align-items:center;gap:5px;color:var(--gold-deep);font-weight:700;font-size:.8rem;text-decoration:none;margin-top:8px}
+
+    .bottom-nav-bar{
+      position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+      width:100%;max-width:480px;height:72px;z-index:1000;
+      background:rgba(21,25,27,.97);
+      -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+      border-top:1px solid rgba(255,255,255,.12);
+      display:flex;align-items:center;justify-content:space-between;gap:6px;padding:0 12px;
+    }
+    .nav-touch-btn{
+      height:48px;padding:0 15px;border:0;border-radius:999px;
+      font-family:var(--sans);font-size:.83rem;font-weight:600;
+      display:inline-flex;align-items:center;gap:5px;cursor:pointer;
+      transition:opacity .15s,transform .1s;
+    }
+    .nav-touch-btn:active{transform:scale(.97)}
+    .btn-prev{background:rgba(255,255,255,.12);color:var(--gold-soft)}
+    .btn-prev:disabled{opacity:.28;cursor:not-allowed}
+    .btn-next{background:var(--gold);color:var(--ink);font-weight:700}
+    .btn-site-peek{
+      color:var(--gold-soft);border:1px solid rgba(194,160,90,.4);background:rgba(194,160,90,.13);
+      height:44px;padding:0 10px;border-radius:999px;display:flex;align-items:center;gap:5px;
+      font-size:.71rem;font-weight:600;text-decoration:none;white-space:nowrap;
+    }
+
+    .interest-btn{
+      width:100%;min-height:52px;margin-top:14px;
+      background:linear-gradient(135deg,var(--ink) 0%,#3c4446 100%);
+      color:var(--gold-soft);font-family:var(--sans);font-size:.97rem;font-weight:700;
+      border:1px solid rgba(194,160,90,.5);border-radius:999px;
+      display:flex;align-items:center;justify-content:center;gap:8px;
+      text-decoration:none;cursor:pointer;
+    }
+    .interest-btn:active{transform:scale(.98)}
+    .interest-feedback{
+      display:none;background:#fffdf7;border:1px solid var(--gold);
+      border-radius:var(--r-md);padding:12px;margin-top:10px;text-align:center;
+    }
+    .interest-feedback strong{color:var(--gold-deep);font-size:.86rem}
+    .interest-feedback p{color:var(--muted);font-size:.76rem;margin-top:3px}
+
+    .balloons-overlay{position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden}
+    .floating-balloon{position:absolute;bottom:-60px;font-size:2rem;user-select:none;animation:floatUp 3.2s cubic-bezier(.25,.8,.25,1) forwards}
+    @keyframes floatUp{
+      0%{transform:translateY(0) rotate(0);opacity:0}
+      10%{opacity:1}85%{opacity:1}
+      100%{transform:translateY(-115vh) rotate(25deg);opacity:0}
+    }
+
+    .finish-modal{
+      display:none;position:fixed;inset:0;z-index:10000;
+      background:rgba(21,25,27,.9);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+      align-items:center;justify-content:center;padding:20px;
+    }
+    .finish-modal.active{display:flex;animation:fadeIn .25s ease-out}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    .finish-modal-box{
+      background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);
+      padding:28px 22px;max-width:380px;width:100%;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.5);
+    }
+    .finish-modal-box h3{font-family:var(--serif);font-size:1.55rem;margin:8px 0}
+    .finish-modal-box p{font-size:.84rem;color:var(--ink-2);line-height:1.5;margin-bottom:19px}
+    .finish-modal-actions{display:flex;flex-direction:column;gap:9px}
+    .finish-btn-primary{background:var(--gold);color:var(--ink);font-weight:700;padding:14px;border-radius:999px;text-decoration:none;font-size:.9rem;min-height:46px;display:grid;place-items:center}
+    .finish-btn-secondary{background:transparent;color:var(--ink);font-weight:600;padding:11px;border-radius:999px;border:1px solid var(--line-strong);text-decoration:none;font-size:.83rem;cursor:pointer;min-height:42px}
+    .finish-btn-secondary.plain{border:0;color:var(--muted)}
+
+    .swipe-hint{font-size:.72rem;color:var(--muted);text-align:center;margin-top:14px;display:flex;align-items:center;justify-content:center;gap:5px}
+
+    @media (max-width:380px){
+      .card-viewport{padding:13px 12px 94px}
+      .card-title{font-size:1.5rem}
+      .cover-card .card-title{font-size:1.62rem}
+      .bottom-nav-bar{padding:0 9px}
+      .nav-touch-btn{padding:0 11px;font-size:.78rem}
+      .btn-site-peek{font-size:.66rem;padding:0 8px}
+    }
+    @media (prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-viewport" id="viewport">
+
+  <header class="stories-header">
+    <div class="story-progress-container" id="progressBars" aria-hidden="true"></div>
+    <div class="stories-meta-row">
+      <div class="brand-pill">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 12h24"/><path d="M4 21h24" opacity=".55"/></svg>
+        </span>
+        <span>Mascarenhas · Itacaré</span>
+      </div>
+      <button class="mode-switch-btn" id="modeToggle" type="button" onclick="toggleScrollMode()">📜 Ver tudo</button>
+    </div>
+  </header>
+
+  <main class="card-viewport" id="cardViewport">
+
+    <!-- 1 · CAPA -->
+    <section class="story-card active" data-index="0">
+      <div class="cover-card">
+        <span class="cover-tag">Site novo · Mascarenhas</span>
+        <h1 class="card-title">O cliente procura, acha o WhatsApp — e não vê o que vai alugar</h1>
+        <p class="card-subtitle">
+          Vinte anos de loja, 4,3 no Google e 105 avaliações. O que falta não é reputação: é uma primeira tela que mostre a frota, as regras e o jeito de reservar antes de a pessoa abrir a conversa.
+        </p>
+        <div class="cover-foot">
+          📍 Itacaré · Bahia<br>
+          ✦ Prévia funcional da home, montada com os dados públicos da loja
+        </div>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-item"><div class="stat-val">4,3★</div><div class="stat-label">105 avaliações no Google</div></div>
+        <div class="stat-item"><div class="stat-val">+20</div><div class="stat-label">anos em Itacaré e Ilhéus</div></div>
+        <div class="stat-item"><div class="stat-val">3</div><div class="stat-label">idiomas na prévia</div></div>
+      </div>
+
+      <div class="touch-box highlight">
+        <h3><span class="ico">✦</span>Por que olhar isso agora</h3>
+        <p>No Google, o botão “Sitio web” da Mascarenhas abre um <em>contate.me</em> que cai no WhatsApp. Não existe página: quem chega não vê modelo, foto, endereço nem regra de caução. E as avaliações mostram onde isso cobra caro — quase sempre na devolução.</p>
+      </div>
+
+      <div class="swipe-hint"><span>Deslize ou toque em <strong>Avançar</strong> →</span></div>
+    </section>
+
+    <!-- 2 · DIAGNÓSTICO -->
+    <section class="story-card" data-index="1">
+      <div class="kicker">01 · O que foi medido</div>
+      <h2 class="card-title">A operação é forte. A vitrine é uma tela em branco.</h2>
+      <p class="card-subtitle">Olhei o que a loja publica hoje — Google, Instagram e itacare.com.br — e separei o que aproveitar do que falta. Nada de inventar problema:</p>
+
+      <div class="alert-chip"><strong>“Site” que é só um link</strong>O endereço no Google é um redirecionador de contato. Sem página, sem título, sem endereço na busca, sem foto da loja.</div>
+      <div class="alert-chip"><strong>Frota invisível</strong>Nenhum modelo ou ano publicado. Hoje só dois destaques do Instagram mostram Hilux e XRE 300; o resto é categoria.</div>
+      <div class="alert-chip"><strong>Preço sem referência</strong>Nenhum valor público. Toda conversa começa em “quanto custa a diária?”, até quando a pessoa só queria saber se cabe no orçamento.</div>
+      <div class="alert-chip"><strong>Atrito na devolução</strong>As avaliações elogiam o atendimento e reclamam de caução, cobrança de dano e comunicação com quem não fala português.</div>
+
+      <div class="touch-box highlight">
+        <h3><span class="ico">✓</span>O que fica e ganha destaque</h3>
+        <p>20+ anos de estrada, 4,3★ em 105 avaliações, loja física num ponto conhecido da Pedro Longo, Instagram ativo com frota nova e atendimento elogiado pelo nome do Fábio. Isso é material pronto — a página nova só organiza e mostra.</p>
+      </div>
+    </section>
+
+    <!-- 3 · MUDANÇAS -->
+    <section class="story-card" data-index="2">
+      <div class="kicker">02 · Como funciona na prática</div>
+      <h2 class="card-title">Três mudanças que o cliente sente de cara</h2>
+      <p class="card-subtitle">Sem promessa de tecnologia mirabolante: mostrar o que já existe e tirar as dúvidas do caminho entre a pesquisa e a reserva.</p>
+
+      <div class="touch-box">
+        <h3><span class="ico">1</span>Frota que se vê</h3>
+        <p>Cards por categoria, com os modelos que a loja mostra — Toyota Hilux e Honda XRE 300 — e “diária sob consulta” no lugar de preço inventado. Ano e disponibilidade ficam para o WhatsApp.</p>
+      </div>
+      <div class="touch-box">
+        <h3><span class="ico">2</span>WhatsApp com contexto</h3>
+        <p>O botão de cada veículo abre a conversa já com o nome escrito. Quem chega sabe o que quer — e vocês respondem menos o básico.</p>
+      </div>
+      <div class="touch-box">
+        <h3><span class="ico">3</span>Combinado antes da dúvida</h3>
+        <p>Caução, combustível, franquia e CNH aparecem por escrito na página e vão por escrito na conversa. É exatamente o que as avaliações dizem que falta.</p>
+      </div>
+
+      <div class="touch-box compact highlight">
+        <p><strong>Sem checkout novo:</strong> a prévia usa WhatsApp. Se um dia quiserem cobrar online, os mesmos botões podem apontar para um pagamento.</p>
+      </div>
+    </section>
+
+    <!-- 4 · PRÉVIA AO VIVO -->
+    <section class="story-card" data-index="3">
+      <div class="kicker">03 · O protótipo pronto</div>
+      <h2 class="card-title">A prévia já está no ar — abra no seu celular</h2>
+      <p class="card-subtitle">Navegue aqui mesmo ou em tela cheia. Pode testar os três idiomas, a frota, o mapa e os botões de WhatsApp.</p>
+
+      <div class="mobile-preview-box">
+        <iframe class="preview-phone-screen" src="./index.html?lang=pt" title="Prévia da home da Mascarenhas Rent a Car e Motos" loading="lazy"></iframe>
+        <a class="tap-preview-link" href="./index.html" target="_blank" rel="noopener">Ver site em tela cheia ↗</a>
+      </div>
+
+      <p class="card-note">Frota, diárias e condições ainda precisam da confirmação do Fábio. As fotos são ilustrativas — as reais entram quando a loja mandar.</p>
+    </section>
+
+    <!-- 5 · PARTE TÉCNICA -->
+    <section class="story-card" data-index="4">
+      <div class="kicker">04 · Nos bastidores</div>
+      <h2 class="card-title">A parte chata já fica resolvida</h2>
+      <p class="card-subtitle">Sem provedor para contratar, sem painel para aprender e sem mensalidade de plataforma para manter a página no ar.</p>
+
+      <div class="tech-grid-2x2">
+        <div class="tech-mini-card"><span class="tag">Busca</span><h4>Título e descrição</h4><p>Meta description e Open Graph próprios; a ficha do Google passa a apontar para o site.</p></div>
+        <div class="tech-mini-card"><span class="tag">Velocidade</span><h4>Sem framework</h4><p>HTML e CSS puros, sem build e sem biblioteca pesada para carregar no 3G do turista.</p></div>
+        <div class="tech-mini-card"><span class="tag">Celular</span><h4>Testado em 3 telas</h4><p>1440, 768 e 390 px: sem rolagem lateral e sem botão pequeno demais.</p></div>
+        <div class="tech-mini-card"><span class="tag">Confiança</span><h4>4,3 no Google</h4><p>Nota e avaliações reais aparecem como prova, não como texto inventado.</p></div>
+      </div>
+
+      <div class="touch-box compact">
+        <h3><span class="ico">✦</span>Depois de aprovado</h3>
+        <p>Publicação no endereço oficial, com cadeado SSL, ajuste da ficha no Google Meu Negócio e o botão “Sitio web” apontando para a página nova.</p>
+      </div>
+    </section>
+
+    <!-- 6 · ATENDIMENTO -->
+    <section class="story-card" data-index="5">
+      <div class="kicker">05 · No atendimento de vocês</div>
+      <h2 class="card-title">A página entra na frente do WhatsApp — não no lugar dele</h2>
+      <p class="card-subtitle">Ninguém muda de sistema: a conversa continua no mesmo número, com o Fábio respondendo. A página só faz a pessoa chegar melhor informada.</p>
+
+      <div class="tech-grid-2x2">
+        <div class="tech-mini-card"><span class="tag">Contato</span><h4>Mesmo WhatsApp</h4><p>(73) 99844-0150 segue sendo o canal. Nada de aplicativo novo.</p></div>
+        <div class="tech-mini-card"><span class="tag">Reserva</span><h4>Mensagem pronta</h4><p>A conversa já chega com veículo, período e as dúvidas que restarem.</p></div>
+        <div class="tech-mini-card"><span class="tag">Frota</span><h4>O que é real hoje</h4><p>Os modelos confirmados aparecem com nome; o resto entra como categoria, sem inventar.</p></div>
+        <div class="tech-mini-card"><span class="tag">Google</span><h4>Ficha e avaliações</h4><p>Endereço, horário e nota 4,3 ligados à página, com o mapa da loja na Pedro Longo.</p></div>
+      </div>
+
+      <div class="touch-box highlight">
+        <h3><span class="ico">✦</span>O que muda na rotina</h3>
+        <p>Nenhuma migração e nenhum painel novo. A diferença é que a pessoa chega sabendo a categoria, o período e as regras — e vocês param de responder o básico dez vezes por dia.</p>
+      </div>
+
+      <div class="touch-box compact">
+        <p><strong>Por veículo:</strong> cada card aponta para o WhatsApp com o nome escrito. Se depois quiserem formulário ou pagamento online, é ajuste de briefing.</p>
+      </div>
+    </section>
+
+    <!-- 7 · BENEFÍCIOS -->
+    <section class="story-card" data-index="6">
+      <div class="kicker">06 · Enquanto a temporada acontece</div>
+      <h2 class="card-title">Quatro pontos que valem já nesta temporada</h2>
+      <p class="card-subtitle">Não são promessas de faturamento: são atritos que a página tira do caminho de quem está decidindo agora.</p>
+
+      <div class="benefit-list">
+        <div class="benefit-item"><span class="benefit-num">1</span><div><h3>WhatsApp com contexto</h3><p>Em vez de “quanto custa?”, a mensagem chega com o veículo escolhido. O atendimento das 8h às 18h começa com a pergunta já respondida.</p></div></div>
+        <div class="benefit-item"><span class="benefit-num">2</span><div><h3>Frota visível</h3><p>Hilux, XRE 300 e as categorias de carro e scooter deixam de depender de quem já segue o Instagram da loja.</p></div></div>
+        <div class="benefit-item"><span class="benefit-num">3</span><div><h3>Turista de fora entende</h3><p>Português, inglês e espanhol — que é o público que aluga moto e scooter em Itacaré. A escolha do idioma fica lembrada.</p></div></div>
+        <div class="benefit-item"><span class="benefit-num">4</span><div><h3>Regras antes da dúvida</h3><p>Caução, combustível, franquia e CNH na página. Boa parte das resenhas ruins fala exatamente disso, na hora da devolução.</p></div></div>
+      </div>
+
+      <div class="touch-box compact highlight">
+        <p><strong>E sem mudar o sistema:</strong> a loja segue atendendo no WhatsApp. A página nova só faz o cliente chegar sabendo o que quer e o que está combinado.</p>
+      </div>
+
+      <p class="card-note">Frota e diárias precisam da confirmação da loja antes de publicar; a prévia não inventa valor nenhum.</p>
+    </section>
+
+    <!-- 8 · ESCOPO -->
+    <section class="story-card" data-index="7">
+      <div class="kicker">07 · Escopo e investimento</div>
+      <h2 class="card-title">Escolha o tamanho da primeira entrega</h2>
+      <p class="card-subtitle">Toque numa opção para ver o que entra. Os valores são apresentados separadamente, conforme o escopo escolhido.</p>
+
+      <div class="package-chip" id="pkg1" onclick="selectPackage(1)">
+        <div class="package-header">
+          <div><div class="package-name">Vitrine + WhatsApp</div><div class="package-desc">O que você já está vendo na prévia</div></div>
+          <div class="package-price">a combinar</div>
+        </div>
+        <ul class="feature-list">
+          <li>Frota por categoria, com os modelos confirmados</li>
+          <li>Condições, FAQ, mapa e botão flutuante de WhatsApp</li>
+          <li>Botões que abrem a conversa com o veículo escrito</li>
+          <li>Responsivo e testado no celular</li>
+        </ul>
+      </div>
+
+      <div class="package-chip selected" id="pkg2" onclick="selectPackage(2)">
+        <span class="package-ribbon">Recomendado</span>
+        <div class="package-header">
+          <div><div class="package-name">Publicação + idiomas</div><div class="package-desc">Pronto para receber turista de fora</div></div>
+          <div class="package-price">a combinar</div>
+        </div>
+        <ul class="feature-list">
+          <li><strong>Tudo do escopo anterior</strong></li>
+          <li>Português, inglês e espanhol</li>
+          <li>Fotos reais da frota e da loja no lugar das ilustrativas</li>
+          <li>Publicação no domínio com SSL e ajuste no Google Meu Negócio</li>
+          <li>Revisão final com vocês, no celular</li>
+        </ul>
+      </div>
+
+      <div class="package-chip" id="pkg3" onclick="selectPackage(3)">
+        <div class="package-header">
+          <div><div class="package-name">Frota com diárias</div><div class="package-desc">Quando a lista do Fábio chegar</div></div>
+          <div class="package-price">a combinar</div>
+        </div>
+        <ul class="feature-list">
+          <li>Modelo, ano, capacidade e diária real por veículo</li>
+          <li>Valores de alta e baixa temporada, com atualização</li>
+          <li>Política de caução e de danos explicada item por item</li>
+        </ul>
+      </div>
+
+      <p class="card-note">Condições de pagamento e prazo apresentados junto com o orçamento.</p>
+    </section>
+
+    <!-- 9 · QUEM ASSINA -->
+    <section class="story-card" data-index="8">
+      <div class="kicker">08 · Quem assina o projeto</div>
+      <h2 class="card-title">Arthur Horyu — tecnologia e imagem a serviço de quem vive de turismo</h2>
+      <p class="card-subtitle">Trabalho com desenvolvimento, design e imagem para negócios locais que vivem de gente chegando de fora.</p>
+
+      <div class="touch-box compact">
+        <p><strong>Contato direto:</strong> você fala com quem monta a página, sem agência no meio.</p>
+      </div>
+      <div class="touch-box compact">
+        <p><strong>Olhar de turismo:</strong> fiz o site da Bahia Turismo, aqui em Itacaré, e o do Recanto Ponte de Pedra, atrativo turístico e gastronômico da região.</p>
+      </div>
+      <div class="touch-box compact">
+        <p><strong>Tecnologia leve:</strong> página rápida, sem mensalidade de plataforma e sem comissão por reserva.</p>
+      </div>
+
+      <div class="case-card">
+        <div class="case-media"><img src="assets/img/hero-moto.jpg" alt="Estrada de terra no litoral de Itacaré">
+          <span class="case-label">mascarenhas · prévia</span>
+        </div>
+        <div class="case-body">
+          <strong>Aqui mesmo, em Itacaré</strong>
+          <p>A prévia foi montada com dados públicos da própria loja — Google, Instagram e itacare.com.br. Não é um modelo genérico trocado pelo nome da empresa.</p>
+        </div>
+      </div>
+
+      <a class="tap-preview-link dark" href="https://horyu-arthur.vercel.app/" target="_blank" rel="noopener">Ver portfólio completo ↗</a>
+    </section>
+
+    <!-- 10 · PRAZO E FECHAMENTO -->
+    <section class="story-card" data-index="9">
+      <div class="kicker">09 · Como chegamos no ar</div>
+      <h2 class="card-title">Cinco dias, sem mexer na rotina da loja</h2>
+      <p class="card-subtitle">O passo a passo depende de uma confirmação: frota, diárias por temporada e fotos permitidas.</p>
+
+      <div class="timeline-mobile">
+        <div class="timeline-row"><div class="timeline-badge">Dia 1</div><div class="timeline-info"><h4>Briefing e conferência</h4><p>Frota real, diárias por temporada, caução e fotos liberadas.</p></div></div>
+        <div class="timeline-row"><div class="timeline-badge">Dia 2</div><div class="timeline-info"><h4>Frota e textos</h4><p>Cards com modelo, categoria e as condições escritas.</p></div></div>
+        <div class="timeline-row"><div class="timeline-badge">Dia 3</div><div class="timeline-info"><h4>Idiomas e busca</h4><p>Português, inglês e espanhol; título, descrição e ficha no Google.</p></div></div>
+        <div class="timeline-row"><div class="timeline-badge">Dia 4</div><div class="timeline-info"><h4>Revisão com vocês</h4><p>Teste no celular e ajuste de texto, foto e valor.</p></div></div>
+        <div class="timeline-row"><div class="timeline-badge final">Dia 5</div><div class="timeline-info"><h4>Publicação 🚀</h4><p>Endereço oficial no ar, com SSL e ficha do Google atualizada.</p></div></div>
+      </div>
+
+      <div class="touch-box compact highlight">
+        <p><strong>Obrigado pela atenção!</strong> Se fizer sentido, a gente conversa com calma e ajusta o que vocês acharem necessário.</p>
+      </div>
+
+      <a class="interest-btn" id="btnInterest" href="https://wa.me/5573998440150?text=Oi%21%20Vi%20a%20pr%C3%A9via%20do%20site%20da%20Mascarenhas%20e%20quero%20conversar." target="_blank" rel="noopener" onclick="celebrateInterest()">🎈 Gostei, vamos conversar!</a>
+      <div class="interest-feedback" id="interestFeedback"><strong>Que bom! A conversa abre no WhatsApp.</strong><p>Se preferir, ligue: (73) 99844-0150.</p></div>
+    </section>
+
+  </main>
+
+
+  <div class="finish-modal" id="finishModal" role="dialog" aria-modal="true" aria-labelledby="finishTitle">
+    <div class="finish-modal-box">
+      <div style="font-size:2rem;line-height:1">✦</div>
+      <h3 id="finishTitle">Obrigado!</h3>
+      <p>Foi um prazer preparar essa prévia para a Mascarenhas. Se quiser, revisitar o site ou voltamos do começo da apresentação.</p>
+      <div class="finish-modal-actions">
+        <a class="finish-btn-primary" href="./index.html" target="_blank" rel="noopener">Ver site em tela cheia ↗</a>
+        <button class="finish-btn-secondary" type="button" onclick="restartPresentation()">Rever a apresentação</button>
+        <button class="finish-btn-secondary plain" type="button" onclick="closeFinishModal()">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="balloons-overlay" id="balloonsContainer" aria-hidden="true"></div>
+
+  <nav class="bottom-nav-bar" aria-label="Navegação da apresentação">
+    <button class="nav-touch-btn btn-prev" id="btnPrev" type="button" onclick="prevCard()" disabled>← Voltar</button>
+    <a class="btn-site-peek" href="./index.html" target="_blank" rel="noopener">Ver prévia ↗</a>
+    <button class="nav-touch-btn btn-next" id="btnNext" type="button" onclick="nextCard()">Avançar →</button>
+  </nav>
+
+</div>
+
+<script>
+  (function () {
+    var currentIndex = 0;
+    var isScrollMode = false;
+    var cards = document.querySelectorAll(".story-card");
+    var totalCards = cards.length;
+    var barsHost = document.getElementById("progressBars");
+    for (var b = 0; b < totalCards; b++) {
+      var bar = document.createElement("div");
+      bar.className = "story-progress-bar";
+      var fill = document.createElement("div");
+      fill.className = "story-progress-fill";
+      bar.appendChild(fill);
+      barsHost.appendChild(bar);
+    }
+    var bars = barsHost.querySelectorAll(".story-progress-bar");
+    var btnPrev = document.getElementById("btnPrev");
+    var btnNext = document.getElementById("btnNext");
+    var modeBtn = document.getElementById("modeToggle");
+    var viewport = document.getElementById("cardViewport");
+    var modal = document.getElementById("finishModal");
+
+    function showCard(index) {
+      if (isScrollMode) return;
+      currentIndex = Math.max(0, Math.min(index, totalCards - 1));
+      Array.prototype.forEach.call(cards, function (card, i) {
+        card.classList.toggle("active", i === currentIndex);
+      });
+      Array.prototype.forEach.call(bars, function (bar, i) {
+        bar.classList.toggle("completed", i < currentIndex);
+        bar.classList.toggle("active", i === currentIndex);
+      });
+      btnPrev.disabled = currentIndex === 0;
+      btnNext.textContent = currentIndex === totalCards - 1 ? "Finalizar ✓" : "Avançar →";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function nextCard() {
+      if (currentIndex < totalCards - 1) showCard(currentIndex + 1);
+      else openFinishModal();
+    }
+
+    function prevCard() {
+      if (currentIndex > 0) showCard(currentIndex - 1);
+    }
+
+    function openFinishModal() {
+      celebrate();
+      modal.classList.add("active");
+      modal.querySelector(".finish-btn-secondary").focus();
+    }
+
+    function closeFinishModal() { modal.classList.remove("active"); }
+
+    function restartPresentation() {
+      closeFinishModal();
+      showCard(0);
+    }
+
+    function celebrateInterest() {
+      document.getElementById("interestFeedback").style.display = "block";
+      celebrate();
+    }
+
+    function celebrate() {
+      var container = document.getElementById("balloonsContainer");
+      var emojis = ["🏖️", "✦", "🛵", "🎉", "🚙", "✨", "🎈"];
+      for (var i = 0; i < 20; i++) {
+        var b = document.createElement("div");
+        b.className = "floating-balloon";
+        b.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        b.style.left = (Math.random() * 88 + 4) + "vw";
+        b.style.animationDuration = (2.2 + Math.random() * 1.6) + "s";
+        b.style.animationDelay = (Math.random() * 0.5) + "s";
+        container.appendChild(b);
+        (function (node) { window.setTimeout(function () { node.remove(); }, 4400); })(b);
+      }
+    }
+
+    function toggleScrollMode() {
+      isScrollMode = !isScrollMode;
+      document.body.classList.toggle("scroll-mode", isScrollMode);
+      modeBtn.textContent = isScrollMode ? "📱 Modo stories" : "📜 Ver tudo";
+      if (!isScrollMode) showCard(currentIndex);
+    }
+
+    function selectPackage(num) {
+      for (var i = 1; i <= 3; i++) {
+        var chip = document.getElementById("pkg" + i);
+        if (chip) chip.classList.toggle("selected", i === num);
+      }
+    }
+
+    var startX = 0, startY = 0;
+    viewport.addEventListener("touchstart", function (e) {
+      startX = e.changedTouches[0].screenX;
+      startY = e.changedTouches[0].screenY;
+    }, { passive: true });
+    viewport.addEventListener("touchend", function (e) {
+      if (isScrollMode || modal.classList.contains("active")) return;
+      var dx = e.changedTouches[0].screenX - startX;
+      var dy = e.changedTouches[0].screenY - startY;
+      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+        if (dx < 0) nextCard(); else prevCard();
+      }
+    }, { passive: true });
+
+    window.addEventListener("keydown", function (e) {
+      if (modal.classList.contains("active")) {
+        if (e.key === "Escape") closeFinishModal();
+        return;
+      }
+      if (isScrollMode) return;
+      if (e.target && /^(INPUT|TEXTAREA|IFRAME)$/.test(e.target.tagName)) return;
+      if (e.key === "ArrowRight") nextCard();
+      else if (e.key === "ArrowLeft") prevCard();
+    });
+
+    modal.addEventListener("click", function (e) { if (e.target === modal) closeFinishModal(); });
+
+    window.nextCard = nextCard;
+    window.prevCard = prevCard;
+    window.toggleScrollMode = toggleScrollMode;
+    window.selectPackage = selectPackage;
+    window.celebrateInterest = celebrateInterest;
+    window.restartPresentation = restartPresentation;
+    window.closeFinishModal = closeFinishModal;
+
+    showCard(0);
+  })();
+</script>
+</body>
+</html>
