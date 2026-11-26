@@ -21,6 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap">
+<script>document.documentElement.classList.add("js");</script>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -60,9 +61,24 @@
   </div>
 </header>
 
+<div class="read-progress" aria-hidden="true"><span id="read-bar"></span></div>
+
 <main id="main">
 
   <section class="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <svg viewBox="0 0 1600 760" preserveAspectRatio="xMidYMid slice" focusable="false">
+        <defs>
+          <pattern id="heroDots" width="22" height="22" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1.6" fill="#E0D2BC"/>
+          </pattern>
+        </defs>
+        <rect width="1600" height="760" fill="url(#heroDots)"/>
+        <path d="M0 740 L120 740 L198 662 L430 662" fill="none" stroke="#E39A1C" stroke-width="1.5" opacity=".45"/>
+        <path d="M0 700 L66 700 L108 658" fill="none" stroke="#E39A1C" stroke-width="1.5" opacity=".22"/>
+        <rect x="423" y="655" width="14" height="14" fill="#E39A1C" opacity=".45"/>
+      </svg>
+    </div>
     <div class="container hero-grid">
       <div class="hero-copy">
         <p class="eyebrow" data-i18n="hero.eyebrow">Itacaré e Ilhéus · desde a década de 2000</p>
@@ -80,10 +96,26 @@
       </div>
       <figure class="hero-media">
         <img src="assets/img/hero-moto.jpg" alt="Fachada da Mascarenhas na Pedro Longo, 558, com faixa da loja e motos na porta" data-i18n-alt="hero.alt" width="1600" height="900" fetchpriority="high">
+        <aside class="hero-ticket" aria-hidden="true">
+          <div class="hero-ticket-head"><span>Locação · Itacaré</span><span>loja física</span></div>
+          <div class="hero-ticket-row"><em>Retirada</em><strong>a combinar</strong></div>
+          <div class="hero-ticket-row"><em>Devolução</em><strong>a combinar</strong></div>
+          <div class="hero-ticket-rule"></div>
+          <div class="hero-ticket-row"><em>Veículo</em><strong>carro · moto · scooter</strong></div>
+          <span class="hero-ticket-bar"></span>
+          <p class="hero-ticket-foot">Diária, caução e combustível por escrito antes da retirada</p>
+        </aside>
         <figcaption data-i18n="hero.caption">A loja na Pedro Longo, 558 — Pituba.</figcaption>
       </figure>
     </div>
   </section>
+
+  <div class="road-band" aria-hidden="true">
+    <span class="road-line"></span>
+    <span class="road-vehicle">
+      <svg viewBox="0 0 44 20" fill="currentColor"><path d="M4.4 12.6h35.2l-1.7-4.2-6.6-1.3-3.6-3.4H15.4L11.8 7.1 5.4 8.4 4.4 12.6Z"/><circle cx="12.4" cy="13.9" r="3.1"/><circle cx="31.8" cy="13.9" r="3.1"/></svg>
+    </span>
+  </div>
 
   <section class="section" id="frota" aria-labelledby="frota-title">
     <div class="container">
@@ -94,7 +126,7 @@
       </div>
 
       <div class="fleet-grid">
-        <article class="fleet-card">
+        <article class="fleet-card reveal">
           <figure class="fleet-media">
             <img src="assets/img/carro.jpg" alt="Jeep Renegade branco com adesivo da Mascarenhas, estacionado perto do mar" data-i18n-alt="fleet.car.alt" width="1200" height="800" loading="lazy">
             <figcaption class="fleet-flag" data-i18n="fleet.flag.car">CNH B</figcaption>
@@ -108,7 +140,7 @@
           </div>
         </article>
 
-        <article class="fleet-card">
+        <article class="fleet-card reveal">
           <figure class="fleet-media">
             <img src="assets/img/pickup.jpg" alt="Toyota Hilux prata com adesivo da Mascarenhas, em rua de pedra em Itacaré" data-i18n-alt="fleet.pickup.alt" width="1200" height="800" loading="lazy">
             <figcaption class="fleet-flag" data-i18n="fleet.flag.pickup">4x4 · CNH B</figcaption>
@@ -122,7 +154,7 @@
           </div>
         </article>
 
-        <article class="fleet-card">
+        <article class="fleet-card reveal">
           <figure class="fleet-media">
             <img src="assets/img/scooter.jpg" alt="Scooter vermelha e moto paradas na porta da loja, com a faixa da Mascarenhas ao lado" data-i18n-alt="fleet.scooter.alt" width="1200" height="800" loading="lazy">
             <figcaption class="fleet-flag" data-i18n="fleet.flag.scooter">CNH A ou ACC</figcaption>
@@ -136,7 +168,7 @@
           </div>
         </article>
 
-        <article class="fleet-card">
+        <article class="fleet-card reveal">
           <figure class="fleet-media">
             <img src="assets/img/moto.jpg" alt="Honda XRE 300 prateada, com baú, em área verde perto do mar" data-i18n-alt="fleet.moto.alt" width="1200" height="800" loading="lazy">
             <figcaption class="fleet-flag" data-i18n="fleet.flag.moto">CNH A</figcaption>
@@ -162,22 +194,22 @@
         <h2 id="como-title" data-i18n="how.title">Quatro passos, nenhuma surpresa.</h2>
       </div>
       <ol class="steps">
-        <li>
+        <li class="reveal">
           <span class="step-n" aria-hidden="true">01</span>
           <h3 data-i18n="how.s1t">Escolha o veículo</h3>
           <p data-i18n="how.s1b">Carro, picape, scooter ou moto. Se estiver em dúvida, conte o roteiro e a gente indica o que aguenta a estrada.</p>
         </li>
-        <li>
+        <li class="reveal">
           <span class="step-n" aria-hidden="true">02</span>
           <h3 data-i18n="how.s2t">Combine no WhatsApp</h3>
           <p data-i18n="how.s2b">Você recebe por escrito a diária, a caução, o combustível e a franquia. Sem valor escondido na devolução.</p>
         </li>
-        <li>
+        <li class="reveal">
           <span class="step-n" aria-hidden="true">03</span>
           <h3 data-i18n="how.s3t">Retire na loja</h3>
           <p data-i18n="how.s3b">Na Pedro Longo, 558, na Pituba, todos os dias das 8h às 18h. Entrega combinada em outro ponto, sob consulta.</p>
         </li>
-        <li>
+        <li class="reveal">
           <span class="step-n" aria-hidden="true">04</span>
           <h3 data-i18n="how.s4t">Devolva conferido</h3>
           <p data-i18n="how.s4b">Veículo e combustível conferidos junto com você, na sua frente, antes de qualquer cobrança.</p>
@@ -194,19 +226,19 @@
         <p class="section-sub" data-i18n="terms.sub">Aluguel sem letra miúda só funciona assim: cada item abaixo vai por escrito na conversa, antes da retirada.</p>
       </div>
       <div class="terms-grid">
-        <div class="term">
+        <div class="term reveal">
           <h3 data-i18n="terms.t1t">Caução</h3>
           <p data-i18n="terms.t1b">Valor e forma de devolução informados antes da retirada. A conferência do veículo é feita com você presente.</p>
         </div>
-        <div class="term">
+        <div class="term reveal">
           <h3 data-i18n="terms.t2t">Combustível</h3>
           <p data-i18n="terms.t2b">O nível de saída é registrado e você devolve no mesmo nível. Sem taxa de abastecimento surpresa.</p>
         </div>
-        <div class="term">
+        <div class="term reveal">
           <h3 data-i18n="terms.t3t">Danos e franquia</h3>
           <p data-i18n="terms.t3b">O que é desgaste de uso e o que é dano, com valor de franquia, é explicado na retirada e registrado por foto.</p>
         </div>
-        <div class="term">
+        <div class="term reveal">
           <h3 data-i18n="terms.t4t">Habilitação</h3>
           <p data-i18n="terms.t4b">CNH válida na categoria do veículo — B para carro e picape, A (ou ACC na scooter) para moto. Documento com foto na retirada.</p>
         </div>
@@ -215,7 +247,15 @@
     </div>
   </section>
 
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <div class="marquee-group"><span>Itacaré</span><i>◆</i><span>Ilhéus</span><i>◆</i><span>Serra Grande</span><i>◆</i><span>Itacarézinho</span><i>◆</i><span>Tiririca</span><i>◆</i><span>Pontal</span><i>◆</i><span>Barra Grande</span><i>◆</i><span>Aeroporto de Ilhéus</span><i>◆</i></div>
+      <div class="marquee-group"><span>Itacaré</span><i>◆</i><span>Ilhéus</span><i>◆</i><span>Serra Grande</span><i>◆</i><span>Itacarézinho</span><i>◆</i><span>Tiririca</span><i>◆</i><span>Pontal</span><i>◆</i><span>Barra Grande</span><i>◆</i><span>Aeroporto de Ilhéus</span><i>◆</i></div>
+    </div>
+  </div>
+
   <section class="section" id="mapa" aria-labelledby="mapa-title">
+    <span class="map-dots" aria-hidden="true"></span>
     <div class="container">
       <div class="section-head">
         <p class="eyebrow" data-i18n="map.eyebrow">A loja</p>
@@ -344,6 +384,7 @@
   </div>
   <div class="container footer-base">
     <p data-i18n="footer.demo">Demonstração de site — dados do Google, do Instagram e do itacare.com.br. Fotos ilustrativas.</p>
+    <p class="footer-credit">Design by: <a href="https://horyu-arthur.vercel.app/" target="_blank" rel="noopener">Horyu <span class="heart" aria-hidden="true">♥</span></a></p>
   </div>
 </footer>
 
