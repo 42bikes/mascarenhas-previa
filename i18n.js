@@ -63,6 +63,8 @@
       "fleet.ask": "Diária sob consulta",
       "fleet.askNote": "valor fechado no WhatsApp",
       "fleet.cta": "Consultar no WhatsApp",
+      "fleet.prev": "Veículo anterior",
+      "fleet.next": "Próximo veículo",
       "fleet.foot": "Modelos e anos variam com a frota disponível na data. Diga o período e a gente confirma qual veículo está livre.",
 
       "how.eyebrow": "Como funciona",
@@ -196,6 +198,8 @@
       "fleet.ask": "Daily rate on request",
       "fleet.askNote": "agreed on WhatsApp",
       "fleet.cta": "Ask on WhatsApp",
+      "fleet.prev": "Previous vehicle",
+      "fleet.next": "Next vehicle",
       "fleet.foot": "Models and years depend on what is available on your dates. Tell us the period and we confirm which vehicle is free.",
 
       "how.eyebrow": "How it works",
@@ -329,6 +333,8 @@
       "fleet.ask": "Tarifa diaria a consultar",
       "fleet.askNote": "valor acordado por WhatsApp",
       "fleet.cta": "Consultar por WhatsApp",
+      "fleet.prev": "Vehículo anterior",
+      "fleet.next": "Vehículo siguiente",
       "fleet.foot": "Modelos y años varían según la flota disponible en la fecha. Dinos el período y confirmamos qué vehículo está libre.",
 
       "how.eyebrow": "Cómo funciona",

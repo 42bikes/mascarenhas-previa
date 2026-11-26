@@ -99,6 +99,58 @@
   var road = document.querySelector(".road-band");
   if (road) onVisible([road], { threshold: 0.45 });
 
+  /* ---------- setas do carrossel da frota (só aparecem no celular) ---------- */
+
+  var fleetGrid = document.querySelector(".fleet-grid");
+  var fleetNav = document.querySelector(".fleet-nav");
+
+  if (fleetGrid && fleetNav && fleetGrid.children.length) {
+    var fleetCards = toArray(fleetGrid.children);
+    var fleetDots = fleetNav.querySelector(".fleet-dots");
+    var fleetPrev = fleetNav.querySelector("[data-fleet-prev]");
+    var fleetNext = fleetNav.querySelector("[data-fleet-next]");
+
+    var dots = fleetCards.map(function () {
+      var dot = document.createElement("span");
+      dot.className = "fleet-dot";
+      return fleetDots.appendChild(dot);
+    });
+
+    function cardStep() {
+      var gap = parseFloat(getComputedStyle(fleetGrid).columnGap) || 0;
+      return fleetCards[0].getBoundingClientRect().width + gap;
+    }
+
+    function setArrow(btn, off) {
+      btn.classList.toggle("is-off", off);
+      btn.setAttribute("aria-disabled", off ? "true" : "false");
+    }
+
+    function syncFleetNav() {
+      var step = cardStep();
+      var max = fleetGrid.scrollWidth - fleetGrid.clientWidth;
+      setArrow(fleetPrev, fleetGrid.scrollLeft <= 2);
+      setArrow(fleetNext, fleetGrid.scrollLeft >= max - 2);
+      var at = step ? Math.round(fleetGrid.scrollLeft / step) : 0;
+      dots.forEach(function (dot, i) { dot.classList.toggle("is-on", i === at); });
+    }
+
+    function moveFleet(direction) {
+      fleetGrid.scrollBy({
+        left: direction * cardStep(),
+        behavior: reduceMotion ? "auto" : "smooth"
+      });
+    }
+
+    fleetPrev.addEventListener("click", function () { moveFleet(-1); });
+    fleetNext.addEventListener("click", function () { moveFleet(1); });
+    fleetGrid.addEventListener("scroll", syncFleetNav, { passive: true });
+    window.addEventListener("resize", function () { requestAnimationFrame(syncFleetNav); });
+    window.addEventListener("load", syncFleetNav);
+    if ("ResizeObserver" in window) new ResizeObserver(syncFleetNav).observe(fleetGrid);
+    syncFleetNav();
+  }
+
   /* ---------- títulos em máscara (uma linha por vez) ----------
      O h2 é quebrado em .ln > .ln-in para as linhas subirem da máscara.
      O i18n troca o textContent do h2 inteiro; quando isso acontece o h2

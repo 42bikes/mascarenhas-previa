@@ -196,6 +196,22 @@ button{font:inherit; color:inherit}
   }
 }
 
+/* no celular o traço do mapa ganha uma versão própria, no rodapé do hero
+   (na versão larga ele é cortado pelo slice do SVG grande) */
+
+.hero-trail-sm{display:none}
+@media (max-width:959px){
+  .hero-trail-sm{
+    display:block; position:absolute; left:var(--gutter); bottom:8px;
+    width:min(240px,62%); height:auto;
+  }
+  .hero-trail-sm path{
+    fill:none; stroke:var(--amber); stroke-width:2; stroke-dasharray:14 12;
+    opacity:.6; animation:heroDash 9s linear infinite;
+  }
+  .hero-trail-sm rect{fill:var(--amber); opacity:.6; animation:heroNode 5.5s ease-in-out infinite}
+}
+
 /* ---------- seções ---------- */
 
 .section{padding:clamp(56px,7vw,96px) 0}
@@ -255,6 +271,7 @@ button{font:inherit; color:inherit}
 }
 .fleet-body .btn::after{content:"→"; font-size:1.1em; line-height:1; transition:transform .25s var(--ease)}
 .fleet-body .btn:hover::after{transform:translateX(4px)}
+.fleet-nav{display:none}
 .fleet-foot{
   margin-top:22px; font-size:12px; color:var(--ink-3); max-width:70ch;
 }
@@ -630,7 +647,27 @@ button{font:inherit; color:inherit}
   }
   .fleet-grid::-webkit-scrollbar{display:none}
   .fleet-card{scroll-snap-align:start}
+  .fleet-nav{display:flex; align-items:center; gap:12px; margin-top:16px}
+  .fleet-arrow{
+    width:44px; height:44px; flex:0 0 auto; padding:0;
+    display:inline-flex; align-items:center; justify-content:center;
+    background:var(--paper); border:1px solid var(--sand); color:var(--ink);
+    font-family:var(--serif); font-size:22px; line-height:1; cursor:pointer;
+    transition:background .2s var(--ease), border-color .2s var(--ease), color .2s var(--ease);
+  }
+  .fleet-arrow:hover{border-color:var(--ink); background:var(--ink); color:var(--paper)}
+  .fleet-arrow[aria-disabled="true"]{opacity:.32; cursor:default; background:var(--paper); border-color:var(--sand); color:var(--ink)}
+  .fleet-dots{display:flex; align-items:center; gap:6px; margin-right:auto}
+  .fleet-dot{width:22px; height:2px; background:var(--sand); transition:background .25s var(--ease)}
+  .fleet-dot.is-on{background:var(--amber)}
   .steps{grid-template-columns:1fr}
+  .steps li{
+    display:grid; grid-template-columns:auto minmax(0,1fr);
+    column-gap:12px; align-items:center;
+  }
+  .step-n{width:30px; height:30px; margin-bottom:0; font-size:11px}
+  .steps h3{margin-bottom:0}
+  .steps p{grid-column:1 / -1; margin-top:10px}
   .terms-grid{grid-template-columns:1fr}
   .hero-proof{flex-direction:column; gap:14px}
   .hero-proof strong{font-size:1.2rem}
@@ -648,6 +685,7 @@ button{font:inherit; color:inherit}
   .road-vehicle{display:none}
   .marquee-track{animation:none}
   .hero-dots,.hero-route,.hero-node{animation:none}
+  .hero-trail-sm path,.hero-trail-sm rect{animation:none}
   .map-pin::after{animation:none; opacity:0}
   .js .reveal{opacity:1; transform:none; transition:none}
   .js .steps li::before{transform:none; transition:none}
