@@ -162,19 +162,37 @@ button{font:inherit; color:inherit}
   padding:8px 12px; line-height:1.5;
 }
 
-/* padrão em SVG atrás do hero: malha de pontos + traço de mapa */
+/* fundo do hero: lavagem quente + malha de pontos em SVG e traço de mapa em movimento */
 
+.hero{
+  background:
+    radial-gradient(110% 80% at 0% 0%, rgba(224,210,188,.62) 0%, rgba(251,247,240,0) 60%),
+    linear-gradient(180deg,#F4ECDE 0%, var(--paper) 58%);
+}
 .hero-bg{
   position:absolute; inset:0; overflow:hidden; pointer-events:none;
-  -webkit-mask-image:linear-gradient(to bottom,#000 0 58%,transparent 94%);
-  mask-image:linear-gradient(to bottom,#000 0 58%,transparent 94%);
+  -webkit-mask-image:linear-gradient(to bottom,#000 0 72%,transparent 100%);
+  mask-image:linear-gradient(to bottom,#000 0 72%,transparent 100%);
 }
 .hero-bg svg{display:block; width:100%; height:100%}
 .hero .container{position:relative; z-index:1}
+
+.hero-dots{animation:heroDrift 38s linear infinite}
+@keyframes heroDrift{to{transform:translate(-16px,16px)}}
+
+.hero-route{
+  fill:none; stroke:var(--amber); stroke-width:1.5; stroke-dasharray:14 12;
+  opacity:.5; animation:heroDash 9s linear infinite;
+}
+.hero-route-2{opacity:.26; animation-duration:13s}
+.hero-node{fill:var(--amber); opacity:.55; animation:heroNode 5.5s ease-in-out infinite}
+@keyframes heroDash{to{stroke-dashoffset:-52}}
+@keyframes heroNode{50%{opacity:.95}}
+
 @media (min-width:960px){
   .hero-bg{
-    -webkit-mask-image:linear-gradient(105deg,#000 0 36%,transparent 64%);
-    mask-image:linear-gradient(105deg,#000 0 36%,transparent 64%);
+    -webkit-mask-image:linear-gradient(105deg,#000 0 46%,transparent 78%);
+    mask-image:linear-gradient(105deg,#000 0 46%,transparent 78%);
   }
 }
 
@@ -629,6 +647,7 @@ button{font:inherit; color:inherit}
   *,*::before,*::after{animation-duration:.01ms !important; transition-duration:.01ms !important}
   .road-vehicle{display:none}
   .marquee-track{animation:none}
+  .hero-dots,.hero-route,.hero-node{animation:none}
   .map-pin::after{animation:none; opacity:0}
   .js .reveal{opacity:1; transform:none; transition:none}
   .js .steps li::before{transform:none; transition:none}
